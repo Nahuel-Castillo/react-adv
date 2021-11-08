@@ -2,7 +2,12 @@ import { Route } from "react-router-dom";
 
 import { IRoute } from "../../routes/routes";
 
-const CustomRoute = ({ path, index, Component, children }: IRoute) => {
+const CustomRoute = ({
+  path,
+  index,
+  component: Component,
+  children,
+}: Omit<IRoute, "name">) => {
   if (!children) {
     return (
       <Route key={path} index={index} path={path} element={<Component />} />
@@ -11,7 +16,7 @@ const CustomRoute = ({ path, index, Component, children }: IRoute) => {
 
   return (
     <Route key={path} path={path} element={<Component />}>
-      {children.map(({ path, Component, index }) => (
+      {children.map(({ path, component: Component, index }) => (
         <Route key={path} index={index} path={path} element={<Component />} />
       ))}
     </Route>
