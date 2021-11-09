@@ -9,6 +9,10 @@ export interface Product {
   name: string;
 }
 
+export interface ProductInCart extends Product {
+  count: number;
+}
+
 export interface ProductCounterProps {
   counter: number;
   increaseBy: (value?: number) => void;
@@ -20,4 +24,9 @@ export interface ProductCardHOCProps {
   Buttons: (props: ProductButtonsProps) => JSX.Element;
   Image: (props: ProductImageProps) => JSX.Element;
   Title: (props: ProductTitleProps) => JSX.Element;
+}
+
+export interface ProductOnChangeArgs {
+  product: Product;
+  count: number;
 }
