@@ -11,7 +11,7 @@ const Navbar = () => {
             <CustomNavLink to="/" name="Home" />
           </li>
           <li>
-            <CustomNavLink to="/about" name="About" />
+            <CustomNavLink to="shopping" name="Shopping page" />
           </li>
           <li>
             <CustomNavLink to="/users" name="Users" />
