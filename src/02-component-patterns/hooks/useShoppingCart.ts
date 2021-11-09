@@ -8,21 +8,18 @@ const useShoppingCart = () => {
 
   const onProductCountChange = ({ product, count }: ProductOnChangeArgs) => {
     setShoppingCart((prevState) => {
-      const productInCart: ProductInCart = prevState[product.id] || {
-        ...product,
-        count: 0,
-      };
-
-      if (Math.max(productInCart.count + count, 0) > 0) {
-        return {
-          ...prevState,
-          [product.id]: { ...product, count: count + productInCart.count },
-        };
+      if (count === 0) {
+        const { [product.id]: _, ...rest } = prevState;
+        return rest;
       }
 
-      // delete product from cart
-      const { [product.id]: _, ...newState } = prevState;
-      return newState;
+      return {
+        ...prevState,
+        [product.id]: {
+          ...product,
+          count,
+        },
+      };
     });
   };
 

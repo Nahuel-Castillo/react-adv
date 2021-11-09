@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Product, ProductOnChangeArgs } from "../interfaces/product";
 
 type UseProductArgs = {
@@ -10,21 +10,19 @@ type UseProductArgs = {
 const useProduct = ({ value = 0, product, onCountChange }: UseProductArgs) => {
   const [counter, setCounter] = useState(value);
 
-  const isControlled = useRef(!!onCountChange);
+  const increaseBy = (value: number = 1) => {
+    const newCount = Math.max(counter + value, 0);
 
-  const increaseBy = (newValue: number = 1) => {
-    if (isControlled.current) {
-      return onCountChange!({ count: newValue, product });
-    }
+    setCounter(newCount);
 
-    setCounter(Math.max(counter + newValue, 0));
+    onCountChange && onCountChange({ product, count: newCount });
   };
 
   useEffect(() => {
     setCounter(value);
   }, [value]);
 
-  return { increaseBy, isControlled, counter };
+  return { increaseBy, counter };
 };
 
 export default useProduct;
